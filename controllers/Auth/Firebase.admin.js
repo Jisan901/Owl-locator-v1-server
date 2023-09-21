@@ -17,11 +17,11 @@ function verifyFirebaseSdk(req,res,next){
     try{
         const authHeader = req.headers.authorization;
         if (!authHeader) {
-            return res.status(401).send({message:'unauthorized access'})
+            return res.status(401).send({message:'unauthorized access header not found'})
         }
         const token = authHeader.split(' ')[1]
         if (!token) {
-            return res.status(403).send({message:'forbidden'})
+            return res.status(403).send({message:'forbidden header null'})
         }
         tokenDecoder(token)
         .then(decoded => {
@@ -29,7 +29,7 @@ function verifyFirebaseSdk(req,res,next){
             return next()
         })
         .catch(err=>{
-            res.status(403).send({message:'forbidden access'})
+            res.status(403).send({message:'forbidden access header expired'})
         })
     }
     catch(e){
@@ -48,10 +48,10 @@ module.exports.verifyCookie=function(req,res,next){
                 next()
             })
             .catch(err=>{
-                return res.status(401).send({message:'unauthorized access'})
+                return res.status(401).send({message:'unauthorized access invalid token response'})
             })
         }else{
-            res.status(403).send({message:'forbidden access'})
+            res.status(403).send({message:'forbidden access cookies not found'})
         }
     }
     catch(e){

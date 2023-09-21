@@ -18,6 +18,8 @@ module.exports.login = async (req,res)=>{
         // same with firebase exp
         res.cookie("idtokencookie",authHeader.split(' ')[1],{
             httpOnly:true,
+            
+            sameSite: "none",
             expires:new Date(decoded.exp*1000)
         }).json({status:"ok",decoded});
     }
