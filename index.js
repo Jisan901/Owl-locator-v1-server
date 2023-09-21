@@ -14,7 +14,7 @@ const chatRouter = require("./routes/chatRouter");
 const PORT = process.env.PORT || 5000;
 const app = express();
 const corsFonfig = {
-  origin: ["http://localhost:5173"],
+  origin:true,
   credentials: true
 };
 
